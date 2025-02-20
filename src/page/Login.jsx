@@ -1,21 +1,59 @@
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
-    const {googleSignIn,}=useContext(AuthContext)
+    const {googleSignIn, signinUser}=useContext(AuthContext)
+    const navigate=useNavigate()
     const handleSubmit=(e)=>{
         e.preventDefault()
         const from=e.target 
         const email=from.email.value 
         const password=from.password.value 
-        console.log(email,password)
+     
+    signinUser(email, password)
+    .then((result) => {
+      const user = result.user;
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/")
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error.message} Try Again`,
+      });
+    });
     } 
 
     const handlesGoogleSubmit=()=>{
         googleSignIn()
+        .then(() => {
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "Login Successful",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: `${error.message} Try Again`,
+            });
+          });
     }
 
   return (

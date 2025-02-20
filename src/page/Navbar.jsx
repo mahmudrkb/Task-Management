@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
-
-
 const Navbar = () => {
-    const {user}=useContext(AuthContext)
-  
+  const { user, logOutUser} = useContext(AuthContext);
+
   return (
     <div className="bg-base-200">
       <div className="container mx-auto px-3 ">
@@ -38,31 +36,45 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>Home</li>
-                
               </ul>
             </div>
-            
+
             <a className="btn btn-ghost text-xl">GetItDone</a>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>Home</li>
-           
-             
             </ul>
           </div>
           <div className="navbar-end ">
-          <li>{user?.email}</li>
-           <div className="flex gap-3">
-           <Link to="/login" className="px-3 hover:text-white  rounded-md py-1 border-2 border-white">
-                Log In
-            </Link>
-            <div className="avatar online">
-              <div className="w-9 rounded-full">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-              </div>
+            <div className="flex gap-3">
+                {
+                    user&& <div className="avatar online">
+                    <div className="w-9 rounded-full">
+                      <img src={user?.photoURL} />
+                    </div>
+                  </div>
+                }
+              
+
+              {user?.email ? (
+                
+                <button 
+                onClick={logOutUser}
+                 
+                  className="px-3 hover:text-white  rounded-md py-1 border-2 border-white"
+                >
+                  Log Out
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="px-3 hover:text-white  rounded-md py-1 border-2 border-white"
+                >
+                  Log In
+                </Link>
+              )}
             </div>
-           </div>
           </div>
         </div>
       </div>

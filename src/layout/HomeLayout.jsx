@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../page/Navbar";
 
-const Home = () => {
+const HomeLayout = () => {
   return (
     <div>
       <nav>
@@ -15,4 +15,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeLayout;

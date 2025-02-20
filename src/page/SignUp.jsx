@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
+    const {createUser, setUser, updateUserProfile}=useContext(AuthContext)
+    const navigate =useNavigate()
     const handleSubmit=(e)=>{
         e.preventDefault()
         const from=e.target 
@@ -10,7 +14,32 @@ const SignUp = () => {
         const photo=from.photo.value 
         const email=from.email.value 
         const password=from.password.value 
-        console.log(name,photo,email,password)
+        // console.log(name,photo,email,password)
+       
+    createUser(email, password)
+    .then((result) => {
+      updateUserProfile(name, photo);
+      setUser({ ...result.user, photoURL: photo, displayName: name });
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Signup Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // console.log(result.user);
+      setUser(result.user);
+      navigate("/");
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error.message} Try Again`,
+      });
+    });
+
+        
     } 
     return (
           <div className="">

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 
 const Navbar = () => {
+    const {user}=useContext(AuthContext)
+  
   return (
     <div className="bg-base-200">
       <div className="container mx-auto px-3 ">
@@ -35,7 +38,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>Home</li>
-                <li>{user?.name}</li>
+                
               </ul>
             </div>
             
@@ -44,9 +47,12 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>Home</li>
+           
+             
             </ul>
           </div>
           <div className="navbar-end ">
+          <li>{user?.email}</li>
            <div className="flex gap-3">
            <Link to="/login" className="px-3 hover:text-white  rounded-md py-1 border-2 border-white">
                 Log In

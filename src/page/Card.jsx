@@ -3,27 +3,27 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import ShowCard from "./ShowCard";
 
 const Card = () => {
-    const {user}=useContext(AuthContext)
-    const axiosSecure = useAxiosSecure();
-const handleSubmit =async e=>{
-    e.preventDefault()
-
-    const from=e.target 
-    const title=from.title.value
-    const category=from.category.value
-    const description=from.description.value
-   const date=  new Date().toISOString()
-   const email=user.email
-    const task={
-        title:title,
-        category:category,
-        description:description,
-        email:email,
-        date:date,
-
-    }
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const from = e.target;
+    const title = from.title.value;
+    const category = from.category.value;
+    const description = from.description.value;
+    const date = new Date().toISOString();
+    const email = user.email;
+    const task = {
+      title: title,
+      category: category,
+      description: description,
+      email: email,
+      date: date,
+    };
 
     const addTask = await axiosSecure.post("/add-task", task);
     // console.log(addTask.data);
@@ -35,11 +35,17 @@ const handleSubmit =async e=>{
         showConfirmButton: false,
         timer: 1500,
       });
-      document.getElementById("my_modal_3").close()
-      
+      document.getElementById("my_modal_3").close();
     }
-   
-}
+  };
+
+  const { data: tasks = [], refetch } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/show-task/${user.email}`);
+      return res.data;
+    },
+  });
 
   return (
     <div>
@@ -75,7 +81,6 @@ const handleSubmit =async e=>{
                         onSubmit={handleSubmit}
                         action="#"
                         method="POST"
-                       
                         className="space-y-6"
                       >
                         <div className="flex gap-4">
@@ -92,7 +97,7 @@ const handleSubmit =async e=>{
                                 name="title"
                                 type="text"
                                 required
-                                 placeholder="Title"
+                                placeholder="Title"
                                 autoComplete="name"
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                               />
@@ -106,10 +111,12 @@ const handleSubmit =async e=>{
                               Category
                             </label>
                             <div className="mt-2">
-                              <select 
-                                name="category" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                              <select
+                                name="category"
+                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                              >
                                 <option disabled selected>
-                                 Select Your Category
+                                  Select Your Category
                                 </option>
                                 <option>To Do</option>
                                 <option>Doing</option>
@@ -119,14 +126,18 @@ const handleSubmit =async e=>{
                           </div>
                         </div>
 
-                        <textarea   name="description"   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Description"></textarea>
+                        <textarea
+                          name="description"
+                          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                          placeholder="Description"
+                        ></textarea>
 
                         <div>
                           <button
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                           >
-                          Add Task
+                            Add Task
                           </button>
                         </div>
                       </form>
@@ -138,8 +149,11 @@ const handleSubmit =async e=>{
           </dialog>
         </div>
 
-        <div>
-            this is card
+        <div className="grid mt-10 grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center ">
+          {tasks.map((task ,index) => (
+            <ShowCard  key={index} task={task}></ShowCard>
+          ))}
+        
         </div>
       </div>
     </div>

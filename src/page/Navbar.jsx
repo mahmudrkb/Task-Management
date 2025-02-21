@@ -31,20 +31,13 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-              >
-                <li>Home</li>
-              </ul>
+             
             </div>
 
-            <a className="btn btn-ghost text-xl">GetItDone</a>
+            <a className="font-bold text-green-100 text-2xl">GetIt<span className="text-green-600">Done</span> </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">
-              <li>Home</li>
-            </ul>
+           
           </div>
           <div className="navbar-end ">
             <div className="flex gap-3">
@@ -60,9 +53,8 @@ const Navbar = () => {
               {user?.email ? (
                 
                 <button 
-                onClick={logOutUser}
-                 
-                  className="px-3 hover:text-white  rounded-md py-1 border-2 border-white"
+                onClick={logOutUser}                
+                  className="px-3 text-green-50   hover:text-green-200  rounded-md py-1 border-2 hover:border-green-200"
                 >
                   Log Out
                 </button>

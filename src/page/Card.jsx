@@ -35,6 +35,7 @@ const Card = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      refetch();
       document.getElementById("my_modal_3").close();
     }
   };
@@ -148,12 +149,55 @@ const Card = () => {
             </div>
           </dialog>
         </div>
-
         <div className="grid mt-10 grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center ">
-          {tasks.map((task ,index) => (
-            <ShowCard  key={index} task={task}></ShowCard>
-          ))}
-        
+          <div className="border-2 p-3 max-h-fit bg-green-800 rounded-md">
+            <h1 className="text-2xl mb-5 text-green-100 text-center font-semibold">
+              To Do
+            </h1>
+            <div className="space-y-4">
+              {tasks
+                .filter((task) => task.category === "To Do")
+                .map((task, index) => (
+                  <ShowCard
+                    key={index}
+                    refetch={refetch}
+                    task={task}
+                  ></ShowCard>
+                ))}
+            </div>
+          </div>
+          <div className="border-2 p-3 max-h-fit bg-yellow-800 rounded-md">
+            <h1 className="text-2xl mb-5 text-yellow-100 text-center font-semibold">
+              Doing
+            </h1>
+            <div className="space-y-4">
+              {tasks
+                .filter((task) => task.category === "Doing")
+                .map((task, index) => (
+                  <ShowCard
+                    key={index}
+                    refetch={refetch}
+                    task={task}
+                  ></ShowCard>
+                ))}
+            </div>
+          </div>
+          <div className="border-2 p-3 max-h-fit bg-blue-800 rounded-md">
+            <h1 className="text-2xl mb-5 text-blue-100 text-center font-semibold">
+              Done
+            </h1>
+            <div className="space-y-4">
+              {tasks
+                .filter((task) => task.category === "Done")
+                .map((task, index) => (
+                  <ShowCard
+                    key={index}
+                    refetch={refetch}
+                    task={task}
+                  ></ShowCard>
+                ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

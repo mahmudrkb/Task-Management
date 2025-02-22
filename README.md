@@ -1,4 +1,4 @@
-# Task Management Website
+# GetItDone
 
 ## Short Description
 This is a task management website designed to help users organize, track, and manage their tasks efficiently. Users can create, update, delete, and prioritize tasks, and categorize tasks into projects or lists. The website provides a user-friendly interface for seamless task management.

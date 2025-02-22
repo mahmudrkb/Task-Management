@@ -12,43 +12,47 @@ const Update = () => {
   const { id } = useParams();
 
   const { data: taskData = {}, refetch } = useQuery({
-    queryKey: ["taskData",id],
+    queryKey: ["taskData", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/task-details/${id}`);
       return res.data;
-    }
-    
+    },
   });
-    console.log(taskData);
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const title = form.title.value;
+    const description = form.description.value;
+    const category = form.category.value;
+    const date = new Date().toDateString();
 
-  //   const handleUpdate = async () => {
-  //     const { id } = useParams();
-  //     const task = {
-  //       title,
-  //       description,
-  //       category,
-  //     };
+    const task = {
+      title: title,
+      description: description,
+      category: category,
+      updatedDate: date,
+    };
 
-  //     const taskUpdate = await axiosSecure.patch(`/update-task/${id}`, task);
+    const taskUpdate = await axiosSecure.patch(`/update-task/${id}`, task);
 
-  //     if (taskUpdate.data.modifiedCount > 0) {
-  //       Swal.fire({
-  //         position: "top-center",
-  //         icon: "success",
-  //         title: "Pet Updated successfully",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       refetch();
-  //     } else {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Oops...",
-  //         text: "Something went wrong!",
-  //       });
-  //     }
-  //   };
+    if (taskUpdate.data.modifiedCount > 0) {
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Task Updated successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      refetch();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    }
+  };
 
   return (
     <div>
@@ -63,7 +67,7 @@ const Update = () => {
 
             <div className="mt-10   sm:mx-auto sm:w-full sm:max-w-sm">
               <form
-                // onSubmit={handleUpdate}
+                onSubmit={handleUpdate}
                 action="#"
                 method="POST"
                 className="space-y-6"

@@ -24,7 +24,7 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/")
+      navigate("/task")
     })
     .catch((error) => {
       Swal.fire({
@@ -45,7 +45,7 @@ const Login = () => {
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate("/");
+            navigate("/task")
           })
           .catch((error) => {
             Swal.fire({

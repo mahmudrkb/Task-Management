@@ -34,7 +34,7 @@ const Navbar = () => {
              
             </div>
 
-            <a className="font-bold text-green-100 text-2xl">GetIt<span className="text-green-600">Done</span> </a>
+            <Link to={"/"} className="font-bold text-green-100 text-2xl">GetIt<span className="text-green-600">Done</span> </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
            

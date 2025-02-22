@@ -149,8 +149,8 @@ const Card = () => {
             </div>
           </dialog>
         </div>
-        <div className="grid mt-10 grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center ">
-          <div className="border-2 p-3 max-h-fit bg-green-800 rounded-md">
+        <div className="grid mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center ">
+          <div className="border-2 p-3 max-h-fit  min-w-80 min-h-72 bg-green-800 rounded-md">
             <h1 className="text-2xl mb-5 text-green-100 text-center font-semibold">
               To Do
             </h1>
@@ -166,7 +166,7 @@ const Card = () => {
                 ))}
             </div>
           </div>
-          <div className="border-2 p-3 max-h-fit bg-yellow-800 rounded-md">
+          <div className="border-2 p-3 max-h-fit  min-w-80 min-h-72 bg-yellow-800 rounded-md">
             <h1 className="text-2xl mb-5 text-yellow-100 text-center font-semibold">
               Doing
             </h1>
@@ -182,7 +182,7 @@ const Card = () => {
                 ))}
             </div>
           </div>
-          <div className="border-2 p-3 max-h-fit bg-blue-800 rounded-md">
+          <div className="border-2 p-3 max-h-fit  min-w-80 min-h-72   bg-blue-800 rounded-md">
             <h1 className="text-2xl mb-5 text-blue-100 text-center font-semibold">
               Done
             </h1>

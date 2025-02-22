@@ -8,6 +8,7 @@ import SignUp from "../page/SignUp";
 
 import HomeLayout from "../layout/HomeLayout";
 import Home from "../page/Home";
+import Update from "../page/Update";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
         {
             path:"/",
             element:<Home></Home>
+        },
+        {
+          path:"/update/:id",
+          element:<Update></Update>
+
         },
        
        {

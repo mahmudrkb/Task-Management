@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { format } from "date-fns";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { AuthContext } from "./../provider/AuthProvider";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import Update from "./Update";
 
-const ShowCard = ({task,refetch}) => {
-const { _id, title, date, description, category } = task;
-
+const ShowCard = ({ task, refetch }) => {
+  const { _id, title, date, description, category } = task;
+  const [modalId, setModalId] = useState();
 
   const axiosSecure = useAxiosSecure();
 
-
   const handleDelete = (id) => {
-    console.log(id);
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -55,7 +56,9 @@ const { _id, title, date, description, category } = task;
             <div className=" flex justify-between items-center gap-5 ">
               <h2 className="card-title">{title}</h2>
               <div className="flex gap-3 items-center">
-                <FaRegEdit className=" size-6 hover:text-blue-600" />
+                <Link to={`/update/${_id}`} >
+                  <FaRegEdit className=" size-6 hover:text-blue-600" />
+                </Link>
                 <AiOutlineDelete
                   onClick={() => handleDelete(_id)}
                   className=" size-6 hover:text-red-600"
